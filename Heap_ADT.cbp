@@ -37,6 +37,7 @@
 		<Unit filename="include/BinaryHeap.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/BinaryHeap.cpp" />
+		<Unit filename="src/BinaryHeap_Impl.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
