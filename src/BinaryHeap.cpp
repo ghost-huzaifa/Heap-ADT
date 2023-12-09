@@ -8,12 +8,14 @@ template <typename comparable>
 BinaryHeap <comparable> :: BinaryHeap(int capacity)
 {
     currentSize = 0;
+    array.resize(capacity + 1);
 }
 
 template <typename comparable>
 BinaryHeap <comparable> :: BinaryHeap(const vector<comparable> &items)
 {
     currentSize = items.size();
+    array.resize(items.size() + 1);
 
     //Copy the items to vector array
     for (int i = 0; i < items.size(); i++)
@@ -32,6 +34,9 @@ bool BinaryHeap <comparable> :: isEmpty() const
 template <typename comparable>
 void BinaryHeap <comparable> :: insert(const comparable &x)
 {
+    if (currentSize == array.size() - 1)
+        array.resize(array.size() * 2);
+
     //Percolating hole up
     int hole = ++currentSize;
     for (; hole > 1 && x < array[hole / 2]; hole /= 2)
@@ -71,7 +76,7 @@ void BinaryHeap <comparable> :: makeEmpty()
 template <typename comparable>
 void BinaryHeap <comparable> :: buildHeap()
 {
-    for (int i = 0; i < currentSize; i++)
+    for (int i = currentSize / 2; i > 0; i--)
     {
         percolateDown(i);
     }
@@ -107,7 +112,14 @@ void BinaryHeap <comparable> :: percolateDown(int hole)
 template <typename comparable>
 vector <comparable> BinaryHeap <comparable> :: getSorted()
 {
-    BinaryHeap <comparable> tempHeap(this->array);
+    //Creates a copy of current heap and its vector array
+    auto first = array.cbegin() + 1;
+    auto last = array.cbegin() + currentSize;
+    vector <comparable> tempArray (first, last);
+
+    BinaryHeap <comparable> tempHeap(tempArray);
+
+
     vector <comparable> sortedArray;
 
     while (!tempHeap.isEmpty())
@@ -118,4 +130,13 @@ vector <comparable> BinaryHeap <comparable> :: getSorted()
     }
 
     return sortedArray;
+}
+
+template <typename comparable>
+void BinaryHeap <comparable> :: printHeap()
+{
+    cout << "[ ";
+    for (int i = 0; i < currentSize; i++)
+        cout << array[i] << " ";
+    cout << "] " << endl;
 }

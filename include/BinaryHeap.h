@@ -17,6 +17,7 @@ class BinaryHeap
         void deleteMin(comparable &minItem);
         void makeEmpty();
         vector<comparable> getSorted();
+        void printHeap();
     private:
         int currentSize; //number of elements in heap
         vector<comparable> array; //the heap array
